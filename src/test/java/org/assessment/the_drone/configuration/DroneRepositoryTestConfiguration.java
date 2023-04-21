@@ -20,7 +20,7 @@ public class DroneRepositoryTestConfiguration {
         // Set up a data source for our test
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:mem:db;DB_CLOSE_DELAY=-1");
+        dataSource.setUrl("jdbc:h2:mem:dronedb;DB_CLOSE_DELAY=-1");
         dataSource.setUsername("sa");
         dataSource.setPassword("");
         
