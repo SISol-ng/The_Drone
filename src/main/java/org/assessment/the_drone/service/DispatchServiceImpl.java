@@ -54,6 +54,11 @@ public class DispatchServiceImpl implements DispatchService {
     public Load getLoadedMedication(long droneId, String code) {
         return loadRepository.findByDroneIdAndCode(droneId, code);
     }
+    
+    @Override
+    public List<Load> getAllLoadedMedications(long droneId) {
+        return loadRepository.findByDroneId(droneId);
+    }
 
     @Override
     public List<Drone> getAvailableDroneForLoading() {
