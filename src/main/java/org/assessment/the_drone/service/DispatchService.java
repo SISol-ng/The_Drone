@@ -24,5 +24,7 @@ public interface DispatchService {
     public Map dispatchDrone(long droneId) throws Exception;
 
     public void logDronesBatteryLevel();
+
+    public List<Load> getAllLoadedMedications(long droneId);
     
 }

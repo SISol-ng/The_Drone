@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/drone")
+@RequestMapping("/api/drone")
 @Validated
 public class DispatchController {
     
@@ -46,6 +46,12 @@ public class DispatchController {
     public ResponseEntity<Load> getLoadedMedication(@PathVariable("droneId") long droneId, @PathVariable("code") String code) {
         Load newLoad = service.getLoadedMedication(droneId, code);
         return ResponseEntity.status(HttpStatus.OK.value()).body(newLoad);
+    }
+    
+    @GetMapping("/{droneId}/items")
+    public ResponseEntity<Map> getAllLoadedMedications(@PathVariable("droneId") long droneId) throws Exception {
+        List<Load> loads = service.getAllLoadedMedications(droneId);
+        return ResponseEntity.status(HttpStatus.OK.value()).body(Map.of("items", loads));
     }
     
     @GetMapping("/available")
