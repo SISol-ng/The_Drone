@@ -2,7 +2,7 @@ drones:
   - id: 3
     droneId: 11
     name: "Hyperlophene"
-    weight: 50.0
+    weight: 50.0 
     code: "MED_51A"
     image: "Base64_Image_String"
   - id: 4
