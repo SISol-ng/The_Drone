@@ -78,8 +78,8 @@ public class DispatchController {
         return ResponseEntity.status(HttpStatus.OK.value()).body(response);
     }
     
-    //Runs every 5 minutes
-    @Scheduled(cron = "*/5 * * * *")
+    //Runs every 5 minutes for testing purpose
+    @Scheduled(cron = "0 */5 * * * ?")
     public void logDronesBatteryLevel() {
         service.logDronesBatteryLevel();
     }
