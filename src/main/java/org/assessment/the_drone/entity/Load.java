@@ -14,11 +14,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import org.assessment.the_drone.util.validator.ValidMedicationCode;
 import org.assessment.the_drone.util.validator.ValidMedicationName;
 
@@ -29,10 +25,6 @@ import org.assessment.the_drone.util.validator.ValidMedicationName;
 @Entity
 @Table(name = "loads")
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Load {
     @Id

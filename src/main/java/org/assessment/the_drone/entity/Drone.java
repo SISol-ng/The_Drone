@@ -13,10 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.assessment.the_drone.util.validator.ValidDroneModel;
 import org.assessment.the_drone.util.validator.ValidDroneState;
@@ -29,10 +26,7 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 @Table(name = "drones")
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Drone {
     @Id
