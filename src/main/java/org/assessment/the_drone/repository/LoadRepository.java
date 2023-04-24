@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface LoadRepository extends JpaRepository<Load, Long> {
 
-    @Query(value = "SELECT SUM(weight) weight, droneId FROM loads WHERE droneId = ?1", nativeQuery = true)
+    @Query(value = "SELECT ?1 AS id, name, SUM(weight) weight, '' AS code, droneId, image FROM loads WHERE droneId = ?1 GROUP BY droneId", nativeQuery = true)
     Load getDroneLoadedWeight(long droneId);
     
     @Query(value = "SELECT id, droneId, name, weight, code, image FROM loads WHERE droneId = ?1 AND code = ?2", nativeQuery = true)
@@ -19,4 +19,5 @@ public interface LoadRepository extends JpaRepository<Load, Long> {
     
     List<Load> findByDroneId(long droneId);
 
+    Load findByCode(String code);
 }

@@ -7,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import org.assessment.the_drone.model.Model;
 
 /**
  *
@@ -17,7 +18,8 @@ import javax.validation.Payload;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDroneModel {
-    String message() default "Drone model must be one of Lightweight, Middleweight, Cruiserweight, or Heavyweight";
+    Model[] valid();
+    String message() default "Drone model must be any of {valid}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

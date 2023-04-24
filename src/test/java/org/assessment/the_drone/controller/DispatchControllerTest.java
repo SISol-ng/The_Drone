@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import org.assessment.the_drone.entity.Drone;
 import org.assessment.the_drone.entity.Load;
-import org.assessment.the_drone.model.Medication;
 import org.assessment.the_drone.service.DispatchService;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -48,9 +47,9 @@ public class DispatchControllerTest {
     void testRegisterDrone() throws Exception {
         //Setup mocked drone
         Drone postDrone = new Drone("YYB16438200041F7", "Heavyweight", 480.0, 100, "IDLE");
-        Drone mockDrone = new Drone(5, "YYB16438200041F7", "Heavyweight", 480.0, 100, "IDLE");
+        Drone mockDrone = new Drone(5, "Heavyweight", "YYB16438200041F7", 480.0, 100, "IDLE");
         //Setup mocked service
-        doReturn(mockDrone).when(service).register(any());
+        doReturn(mockDrone).when(service).registerDrone(any());
         
         // Execute the POST request
         mockMvc.perform(post("/drone/register")
@@ -72,12 +71,12 @@ public class DispatchControllerTest {
     @DisplayName("POST /drone/17/load - Success")
     void testLoadDrone() throws Exception {
         //Setup mocked drone
-        Medication postMedication = new Medication(17, "New Medication", 250.0, "NEW_MED", "Base64_Image_String_New");
+        Load postMedication = new Load("New Medication", 250.0, "NEW_MED", "Base64_Image_String_New");
         Load mockLoad = new Load(1, 17, "New Medication", 250.00, "NEW_MED", "Base64_Image_String_New");
-        Drone mockDrone = new Drone(17, "YYB16438200041F7", "Heavyweight", 480.0, 100, "LOADING");
+        Drone mockDrone = new Drone(17, "Heavyweight", "YYB16438200041F7", 480.0, 100, "LOADING");
         //Setup mocked service
         doReturn(Optional.of(mockDrone)).when(service).findById(17);
-        doReturn(mockLoad).when(service).load(any());
+        doReturn(mockLoad).when(service).loadDrone(17, postMedication);
         
         // Execute the POST request
         mockMvc.perform(post("/drone/{id}/load", 17)
@@ -99,12 +98,12 @@ public class DispatchControllerTest {
     @DisplayName("POST /drone/12/load - Failed")
     void testLoadDroneWeightLimit() throws Exception {
         //Setup mocked drone
-        Medication postMedication = new Medication(12, "New Medication", 250.0, "NEW_MED", "Base64_Image_String_New");
+        Load postMedication = new Load("New Medication", 250.0, "NEW_MED", "Base64_Image_String_New");
         Load mockLoad = new Load(1, 12, "New Medication", 250.00, "NEW_MED", "Base64_Image_String_New");
-        Drone mockDrone = new Drone(12, "YYB16438200041F7", "Lightweight", 180.0, 100, "LOADING");
+        Drone mockDrone = new Drone(12, "Lightweight", "YYB16438200041F7", 180.0, 100, "LOADING");
         //Setup mocked service
         doReturn(Optional.of(mockDrone)).when(service).findById(12);
-        doReturn(mockLoad).when(service).load(any());
+        doReturn(mockLoad).when(service).loadDrone(12, postMedication);
         
         // Execute the POST request
         mockMvc.perform(post("/drone/{id}/load", 12)
@@ -118,12 +117,12 @@ public class DispatchControllerTest {
     @DisplayName("POST /drone/15/load - Failed")
     void testLoadDroneBatteryLevel() throws Exception {
         //Setup mocked drone
-        Medication postMedication = new Medication(15, "New Medication", 250.0, "NEW_MED", "Base64_Image_String_New");
+        Load postMedication = new Load("New Medication", 250.0, "NEW_MED", "Base64_Image_String_New");
         Load mockLoad = new Load(1, 15, "New Medication", 250.00, "NEW_MED", "Base64_Image_String_New");
-        Drone mockDrone = new Drone(15, "YYB16438200041F7", "Heavyweight", 480.0, 24, "IDLE");
+        Drone mockDrone = new Drone(15, "Heavyweight", "YYB16438200041F7", 480.0, 24, "IDLE");
         //Setup mocked service
         doReturn(Optional.of(mockDrone)).when(service).findById(15);
-        doReturn(mockLoad).when(service).load(any());
+        doReturn(mockLoad).when(service).loadDrone(15, postMedication);
         
         // Execute the POST request
         mockMvc.perform(post("/drone/{id}/load", 15)
@@ -137,12 +136,12 @@ public class DispatchControllerTest {
     @DisplayName("POST /drone/15/load - Failed")
     void testLoadDroneState() throws Exception {
         //Setup mocked drone
-        Medication postMedication = new Medication(15, "New Medication", 250.0, "NEW_MED", "Base64_Image_String_New");
+        Load postMedication = new Load("New Medication", 250.0, "NEW_MED", "Base64_Image_String_New");
         Load mockLoad = new Load(1, 15, "New Medication", 250.00, "NEW_MED", "Base64_Image_String_New");
-        Drone mockDrone = new Drone(15, "YYB16438200041F7", "Heavyweight", 480.0, 100, "LOADED");
+        Drone mockDrone = new Drone(15, "Heavyweight", "YYB16438200041F7", 480.0, 100, "LOADED");
         //Setup mocked service
         doReturn(Optional.of(mockDrone)).when(service).findById(15);
-        doReturn(mockLoad).when(service).load(any());
+        doReturn(mockLoad).when(service).loadDrone(15, postMedication);
         
         // Execute the POST request
         mockMvc.perform(post("/drone/{id}/load", 15)
@@ -157,10 +156,10 @@ public class DispatchControllerTest {
     void testFindLoadedMedicationFound() throws Exception {
         //Setup mocked load
         Load mockLoad = new Load(4, 12, "Protophone BP", 150.0, "MED_81C", "Base64_Image_String");
-        Drone mockDrone = new Drone(12, "YYB16438200041F7", "Heavyweight", 480.0, 100, "LOADED");
+        Drone mockDrone = new Drone(12, "Heavyweight", "YYB16438200041F7", 480.0, 100, "LOADED");
         //Setup mocked service
         doReturn(Optional.of(mockDrone)).when(service).findById(12);
-        doReturn(Optional.of(mockLoad)).when(service).findLoadedMedication(12, "MED_81C");
+        doReturn(Optional.of(mockLoad)).when(service).getLoadedMedication(12, "MED_81C");
         
         //Execute the GET request
         mockMvc.perform(get("/drone/{id}/load/{code}", 12, "MED_81C"))
@@ -180,7 +179,7 @@ public class DispatchControllerTest {
     @DisplayName("GET /drone/12/load/MED_901 - Not Found")
     void testFindLoadedMedicationNotFound() throws Exception {
         //Setup mocked service
-        doReturn(Optional.empty()).when(service).findLoadedMedication(12, "MED_901");
+        doReturn(null).when(service).getLoadedMedication(12, "MED_901");
         
         // Execute the GET request
         mockMvc.perform(get("/drone/{id}/load/{code}", 12, "MED_901"))
@@ -191,11 +190,11 @@ public class DispatchControllerTest {
     @DisplayName("GET /drone/available - Found")
     void testGetDronesAvailableForLoading() throws Exception {
         //Setup mocked load
-        Drone drone1 = new Drone(11, "L2B16438200041G7", "Heavyweight", 480.0, 87, "LOADING");
-        Drone drone2 = new Drone(12, "B1B16438202041A7", "Lightweight", 180.0, 95, "IDLE");
+        Drone drone1 = new Drone(11, "Heavyweight", "L2B16438200041G7", 480.0, 87, "LOADING");
+        Drone drone2 = new Drone(12, "Lightweight", "B1B16438202041A7", 180.0, 95, "IDLE");
         List<Drone> drones = new ArrayList<>(Arrays.asList(drone1, drone2));
         //Setup mocked service
-        doReturn(Optional.of(drones)).when(service).findDronesAvailableForLoading();
+        doReturn(drones).when(service).getAvailableDroneForLoading();
         
         //Execute the GET request
         mockMvc.perform(get("/drone/available"))
@@ -213,10 +212,10 @@ public class DispatchControllerTest {
     @DisplayName("POST /drone/11/dispatch - Success")
     void testDispatchDrone() throws Exception {
         //Setup mocked drone
-        Drone mockDrone = new Drone(11, "YYB16438200041F7", "Lightweight", 180.0, 100, "LOADED");
+        Drone mockDrone = new Drone(11, "Lightweight", "YYB16438200041F7", 180.0, 100, "LOADED");
         //Setup mocked service
         doReturn(Optional.of(mockDrone)).when(service).findById(12);
-        doReturn(Optional.empty()).when(service).dispatch(any());
+        doReturn(null).when(service).dispatchDrone(any());
         
         // Execute the POST request
         mockMvc.perform(post("/drone/{id}/register", 11))
@@ -234,7 +233,7 @@ public class DispatchControllerTest {
     @DisplayName("GET /drone/21/battery - Success")
     void testGetDroneBatteryLevelSuccess() throws Exception {
         //Setup mocked load
-        Drone mockDrone = new Drone(21, "YYB16438200041F7", "Lightweight", 180.0, 57, "IDLE");
+        Drone mockDrone = new Drone(21, "Lightweight", "YYB16438200041F7", 180.0, 57, "IDLE");
         //Setup mocked service
         doReturn(Optional.of(mockDrone)).when(service).findById(21);
         

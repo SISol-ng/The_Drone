@@ -1,4 +1,4 @@
-package org.assessment.the_drone.entity;
+package org.assessment.the_drone.model;
 
 /**
  *
