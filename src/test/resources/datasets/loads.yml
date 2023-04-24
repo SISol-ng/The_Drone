@@ -1,0 +1,31 @@
+drones:
+  - id: 3
+    droneId: 11
+    name: "Hyperlophene"
+    weight: 50.0 
+    code: "MED_51A"
+    image: "Base64_Image_String"
+  - id: 4
+    droneId: 12
+    name: "Protophone BP"
+    weight: 150.0
+    code: "MED_81C"
+    image: "Base64_Image_String"
+  - id: 5
+    droneId: 11
+    name: "Deptolopene Htc"
+    weight: 55.0
+    code: "MED2_10"
+    image: "Base64_Image_String"
+  - id: 6
+    droneId: 11
+    name: "Medicare"
+    weight: 70.0
+    code: "MED_71A"
+    image: "Base64_Image_String"
+  - id: 7
+    droneId: 12
+    name: "Tetraclophone methane"
+    weight: 100.0
+    code: "MED_88"
+    image: "Base64_Image_String"

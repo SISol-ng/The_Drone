@@ -1,0 +1,31 @@
+drones:
+  - id: 11
+    serialNumber: "L2B16438200041G7"
+    model: "Lightweight"
+    weightLimit: 200.0
+    batteryCapacity: 100
+    state: "LOADING"
+  - id: 12
+    serialNumber: "B1B16438202041A7"
+    model: "Middleweight"
+    weightLimit: 300.0
+    batteryCapacity: 97
+    state: "LOADING"
+  - id: 13
+    serialNumber: "A7B1643823304197"
+    model: "Heavyweight"
+    weightLimit: 500.0
+    batteryCapacity: 24
+    state: "IDLE"
+  - id: 14
+    serialNumber: "L7A39438200041G9"
+    model: "Cruiserweight"
+    weightLimit: 450.0
+    batteryCapacity: 100
+    state: "DELIVERING"
+  - id: 15
+    serialNumber: "YYB1643820004102"
+    model: "Heavyweight"
+    weightLimit: 500.0
+    batteryCapacity: 89
+    state: "RETURNING"
