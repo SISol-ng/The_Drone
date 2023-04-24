@@ -2,6 +2,7 @@ package org.assessment.the_drone.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.assessment.the_drone.entity.Drone;
 import org.assessment.the_drone.entity.Load;
 
@@ -11,7 +12,9 @@ import org.assessment.the_drone.entity.Load;
  */
 public interface DispatchService {
 
-    public Drone registerDrone(Drone drone);
+    public Drone registerDrone(Drone drone) throws Exception;
+    
+    public Optional<Drone> findById(long droneId);
 
     public Load loadDrone(long droneId, Load load) throws Exception;
 

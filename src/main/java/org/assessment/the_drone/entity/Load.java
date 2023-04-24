@@ -1,6 +1,7 @@
 package org.assessment.the_drone.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -54,7 +55,24 @@ public class Load {
     @NotNull(message = "Medication code cannot be null")
     @NotEmpty(message = "Medication code cannot be empty")
     @ValidMedicationCode
+    @Column(name = "code", unique = true)
     private String code;
     
     private String image;
+    
+    public Load(String name, double weight, String code, String image) {
+        this.name = name;
+        this.weight = weight;
+        this.code = code;
+        this.image = image;
+    }
+    
+    public Load(long id, long droneId, String name, double weight, String code, String image) {
+        this.id = id;
+        this.drone = new Drone(droneId);
+        this.name = name;
+        this.weight = weight;
+        this.code = code;
+        this.image = image;
+    }
 }

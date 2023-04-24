@@ -1,5 +1,6 @@
 package org.assessment.the_drone.controller;
 
+import java.util.HashMap;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class DispatchController {
     private final DispatchService service;
     
     @PostMapping("/register")
-    public ResponseEntity<Drone> registerDrone(@RequestBody @Valid Drone drone) {
+    public ResponseEntity<Drone> registerDrone(@RequestBody @Valid Drone drone) throws Exception {
         Drone newDrone = service.registerDrone(drone);
         return ResponseEntity.status(HttpStatus.CREATED.value()).body(newDrone);
     }
@@ -49,16 +50,20 @@ public class DispatchController {
     }
     
     @GetMapping("/{droneId}/items")
-    public ResponseEntity<Map> getAllLoadedMedications(@PathVariable("droneId") long droneId) throws Exception {
+    public ResponseEntity<HashMap<String, Object>> getAllLoadedMedications(@PathVariable("droneId") long droneId) throws Exception {
         List<Load> loads = service.getAllLoadedMedications(droneId);
-        return ResponseEntity.status(HttpStatus.OK.value()).body(Map.of("items", loads));
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("items", loads);
+        return ResponseEntity.status(HttpStatus.OK.value()).body(map);
     }
     
     @GetMapping("/available")
-    public ResponseEntity<Map> getAvailableDroneForLoading() {
+    public ResponseEntity<HashMap<String, Object>> getAvailableDroneForLoading() {
         List<Drone> drones = service.getAvailableDroneForLoading();
-        return ResponseEntity.status(HttpStatus.OK.value())
-                .body(Map.of("total", drones.size(), "drones", drones));
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("total", drones.size());
+        map.put("drones", drones);
+        return ResponseEntity.status(HttpStatus.OK.value()).body(map);
     }
     
     @GetMapping("/{droneId}/battery")
@@ -73,8 +78,8 @@ public class DispatchController {
         return ResponseEntity.status(HttpStatus.OK.value()).body(response);
     }
     
-    //Runs every 30 minutes
-    @Scheduled(cron = "*/30 * * * *")
+    //Runs every 5 minutes
+    @Scheduled(cron = "*/5 * * * *")
     public void logDronesBatteryLevel() {
         service.logDronesBatteryLevel();
     }
