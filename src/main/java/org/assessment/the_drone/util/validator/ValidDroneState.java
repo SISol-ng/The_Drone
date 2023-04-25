@@ -14,7 +14,7 @@ import javax.validation.Payload;
  */
 @Documented
 @Constraint(validatedBy = ModelValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDroneState {
     String message() default "Drone state must be one of IDLE, LOADING, LOADED, DELIVERING, DELIVERED, or RETURNING";

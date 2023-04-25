@@ -1,4 +1,4 @@
-drones:
+loads:
   - id: 3
     droneId: 11
     name: "Hyperlophene"

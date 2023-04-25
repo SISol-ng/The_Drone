@@ -96,7 +96,7 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 ## Testing
 
 Below is the API documentation
-    [Documentation](https://github.com/SISol-ng/The_Drone/blob/master/src/main/resources/static/the_drone.pdf)
+  - [Documentation](https://github.com/SISol-ng/The_Drone/blob/master/src/main/resources/static/the_drone.pdf)
 
 ## Contributing
 

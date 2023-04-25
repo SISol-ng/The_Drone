@@ -15,6 +15,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.assessment.the_drone.util.validator.ValidDroneModel;
 import org.assessment.the_drone.util.validator.ValidDroneState;
 import org.hibernate.validator.constraints.Length;
@@ -27,6 +28,7 @@ import org.hibernate.validator.constraints.Length;
 @Table(name = "drones")
 @Data
 @NoArgsConstructor
+@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Drone {
     @Id

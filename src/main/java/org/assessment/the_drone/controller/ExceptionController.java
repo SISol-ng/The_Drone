@@ -9,6 +9,7 @@ import org.assessment.the_drone.exception.ForbiddenException;
 import org.assessment.the_drone.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -52,6 +53,12 @@ public class ExceptionController {
             return new ResponseEntity<>(Map.of("Exception", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(Map.of("Exception", sb.toString()), HttpStatus.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> handleJsonErrors(HttpMessageNotReadableException ex){
+        return new ResponseEntity<>(
+                Map.of("Exception", ex.getMessage().replace("org.assessment.the_drone.model.", "")),  HttpStatus.BAD_REQUEST);
     }
     
     @ExceptionHandler(NotFoundException.class)

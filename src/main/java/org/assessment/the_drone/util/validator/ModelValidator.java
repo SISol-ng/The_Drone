@@ -15,7 +15,7 @@ public class ModelValidator implements ConstraintValidator<ValidDroneModel, Mode
     @Override
     public void initialize(ValidDroneModel constraint) {
         this.model = constraint.valid();
-    }
+        }
 
     @Override
     public boolean isValid(Model value, ConstraintValidatorContext context) {
