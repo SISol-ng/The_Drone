@@ -15,6 +15,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.assessment.the_drone.util.validator.ValidMedicationCode;
 import org.assessment.the_drone.util.validator.ValidMedicationName;
 
@@ -25,6 +26,7 @@ import org.assessment.the_drone.util.validator.ValidMedicationName;
 @Entity
 @Table(name = "loads")
 @Data
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Load {
     @Id
@@ -66,5 +68,11 @@ public class Load {
         this.weight = weight;
         this.code = code;
         this.image = image;
+    }
+    
+    @Override
+    public String toString() {
+        return "Load{" + "\"id\": " + id + ", \"droneId\": " + drone.getId()+ ", \"name\": " + name 
+                + ", \"weight\": " + weight + ", \"code\": " + code + ", \"image\": " + image + "}";
     }
 }

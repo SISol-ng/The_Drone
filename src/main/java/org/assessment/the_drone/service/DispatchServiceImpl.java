@@ -65,9 +65,14 @@ public class DispatchServiceImpl implements DispatchService {
             throw new ForbiddenException("Drone battery capacity is below 25%");
         }
         Load loadedWeight = loadRepository.getDroneLoadedWeight(droneId);
-        if(loadedWeight != null && (loadedWeight.getWeight() + load.getWeight()) > drone.get().getWeightLimit()) {
+        double totalWeight = loadedWeight != null ? loadedWeight.getWeight() + load.getWeight() : load.getWeight();
+        if(totalWeight > drone.get().getWeightLimit()) {
             log.error("Exception - Forbidden to load drone");
             throw new ForbiddenException("Drone has reached maximum weight limit");
+        }
+        if (!drone.get().getState().equals(State.valueOf("LOADING")) 
+                && !drone.get().getState().equals(State.valueOf("IDLE"))) {
+            throw new ForbiddenException("Drone is not in a loadable state");
         }
         load.setDrone(drone.get());
         if(drone.get().getState() != State.valueOf("LOADING")) {
